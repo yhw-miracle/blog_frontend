@@ -5,10 +5,12 @@
                 <div class="row1">
                     <div class="title">
                         <img src="/images/system/article.svg" />
-                        <h3><a href="">{{ article.title }}</a></h3>
+                        <span>
+                            <router-link :to="{ path: '/detail', query: {id: article.hash} }">{{ article.title }}</router-link>
+                        </span>
                     </div>
                     <div class="start_reading">
-                        <a href="">开始阅读...</a>
+                        <router-link :to="{ path: '/detail', query: {id: article.hash} }">开始阅读..</router-link>
                     </div>
                 </div>
 
@@ -45,16 +47,19 @@
         </div>
 
         <div class="page">
-            <el-pagination
-                background
-                layout="prev, pager, next"
-                :page_size="1"
-                :page-sizes="[1, 2, 3, 4]"
-                :total="articles.length"
-                :current_page="current_page"
-                @current-change="handleCurrentChange"
-                @prev-click="handlePrevClick"
-                @next-click="handleNextClick" />
+            <img 
+                :src="previousImg" 
+                @click="handleCurrentChange(currentPage, 'previous')" 
+                :class="[ currentPage === 1 ? 'page_cancel':'']"
+                v-if="pageCount > 1" />
+            <span>第 {{ currentPage }} 页,</span>
+            <span>共 {{ pageCount }} 页,</span>
+            <span>计 {{ articles.length }} 篇.</span>
+            <img
+                :src="nextImg"
+                @click="handleCurrentChange(currentPage, 'next')"
+                :class="[ currentPage === pageCount ? 'page_cancel':'']"
+                v-if="pageCount > 1" />
         </div>
     </div>
 </template>
@@ -64,9 +69,15 @@ export default {
     name: "BlogHome",
     data() {
         return {
-            current_page: "2",
+            currentPage: 1,
+            pageSize: 1,
+            pageCount: 2,
+            previousImg: "/images/system/previous.svg",
+            nextImg: "/images/system/next.svg",
+            noPageImg: "/images/system/no_page.svg",
             articles: [
                 {
+                    hash: "11111112222",
                     title: "Python 系列学习一",
                     create: "2022-01-01 00:00:00",
                     update: "2022-01-01 00:00:00",
@@ -77,6 +88,7 @@ export default {
                     content: "aaaaaaaaaaaaaaaaa"
                 },
                 {
+                    hash: "11111112222",
                     title: "Python 系列学习一",
                     create: "2022-01-01 00:00:00",
                     update: "2022-01-01 00:00:00",
@@ -87,6 +99,7 @@ export default {
                     content: "aaaaaaaaaaaaaaaaa"
                 },
                 {
+                    hash: "11111112222",
                     title: "Python 系列学习一",
                     create: "2022-01-01 00:00:00",
                     update: "2022-01-01 00:00:00",
@@ -97,6 +110,7 @@ export default {
                     content: "aaaaaaaaaaaaaaaaa"
                 },
                 {
+                    hash: "11111112222",
                     title: "Python 系列学习一",
                     create: "2022-01-01 00:00:00",
                     update: "2022-01-01 00:00:00",
@@ -109,15 +123,33 @@ export default {
             ]
         }
     },
+    mounted() {
+        this.pageCount = Math.ceil(this.articles.length / this.pageSize)
+        this.setPreviousAndNextImg()
+    },
     methods: {
-        handleCurrentChange(number) {
-            console.log("handleCurrentChange ===> ", number)
+        handleCurrentChange(page, operation) {
+            console.log("handleCurrentChange ===> ", page, operation)
+            if(operation == "previous") {
+                page -= 1
+            } else if(operation == "next") {
+                page += 1
+            }
+            this.currentPage = page
+            this.setPreviousAndNextImg()
         },
-        handlePrevClick() {
+        setPreviousAndNextImg() {
+            if(this.currentPage == 1) {
+                this.previousImg = "/images/system/no_page.svg"
+            } else {
+                this.previousImg = "/images/system/previous.svg"
+            }
 
-        },
-        handleNextClick() {
-
+            if(this.currentPage == this.pageCount) {
+                this.nextImg = "/images/system/no_page.svg"
+            } else {
+                this.nextImg = "/images/system/next.svg"
+            }
         }
     },
 }
@@ -127,13 +159,13 @@ export default {
 .home {
     width: 100%;
     height: 100%;
-    margin: 10px auto;
+    margin: 30px auto;
 }
 .article_list {
     width: 90%;
     height: 90%;
     text-align: left;
-    margin: 5px auto;
+    margin: 20px auto;
 }
 .row1, .row2, .row3 {
     width: 100%;
@@ -148,22 +180,36 @@ export default {
     margin: 8px 30px;
     float: left;
 }
-.reader {
-    margin: 8px 130px;
+.title span {
+    font-weight: bolder;
 }
+/*
+.reader {
+    margin: 5px 80px 5px 5px;
+}
+*/
 .start_reading, .create_time, .tags {
     text-align: right;
     float: right;
 }
-.category_item, .tag_item {
+.title *, .start_reading *, .author *, .reader *, .create_time *, .category *, .category_item, .tags *, .tag_item {
     display: inline-block;
-    background-color: #FF6A00;
-    margin: 0px 6px;
-    padding: 1px 6px;
+    margin: 0px 3px;
+    padding: 3px;
+    float: left;
+    height: 25px;
 }
+.category_item, .tag_item {
+    background-color: #FF6A00;
+}
+.tags p {
+    margin: 0px 6px;
+}
+/*
 img, span {
     margin: 0 5px;
 }
+*/
 hr {
     border: none;
     border-top: 3px dotted #00FF00;
@@ -172,14 +218,24 @@ hr {
 .page {
     width: 90%;
     height: 10%;
-    margin: 5px auto;
+    margin: 10px auto;
     text-align: center;
 }
 .el-pagination {
     width: 40%;
-    margin: 0 auto;
+    margin: auto auto;
+}
+.el-pagination * {
+    margin: auto auto;
 }
 .el-pagination.is-background .el-pager li:not(.is-disabled).is-active {
     background-color: #FF6A00;
+}
+.page_cancel {
+    pointer-events: none;
+}
+.page * {
+    height: 25px;
+    margin: 0px 3px;
 }
 </style>

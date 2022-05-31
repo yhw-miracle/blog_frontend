@@ -1,17 +1,19 @@
 <template>
     <div class="header">
         <el-menu 
-            class="blog_menu" 
-            :default-active="active_index" 
-            :router="true"
-            mode="horizontal" 
-            @select="handleSelect"
+            class="blog_menu"
+            mode="horizontal"
+            :ellipsis="false"
+            background-color="#FF6A00"
             text-color="#800080"
-            active-text-color="#00FF00">
+            active-text-color="#00FF00"
+            :default-active="current" 
+            :router="true"
+            @select="handleSelect">
             <template v-for="(item, i) in menu_info" :key="i">
                 <el-menu-item :index="item.path">{{ item.name }}</el-menu-item>
             </template>
-        </el-menu>
+        </el-menu> 
     </div>
 </template>
 
@@ -22,9 +24,17 @@ export default {
     name: "BlogHeader",
     data() {
         return {
-            active_index: "/",
-            menu_info: router
+            current: "/",
+            menu_info: []
         }
+    },
+    mounted() {
+        var that=this;
+        router.forEach(function func(value) {
+            if(value.name != "文章详情") {
+                that.menu_info.push(value)
+            }
+        })
     },
     watch: {
         $route() {
@@ -33,11 +43,11 @@ export default {
     },
     methods: {
         handleSelect(key) {
-            this.active_index = key
+            this.current = key
         },
         // 刷新页面，保持菜单的选项和路由
         setCurrentRoute() {
-            this.active_index = this.$route.path
+            this.current = this.$route.path
         }
     },
     created() {
@@ -56,7 +66,6 @@ export default {
     width: 100%;
     height: 100%;
     margin: 0 auto;
-    background-color: #FF6B00;
 }
 .blog_menu {
     border-bottom: 0px;

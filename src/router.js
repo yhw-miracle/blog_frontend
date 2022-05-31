@@ -6,10 +6,12 @@ import BlogCategory from './components/category.vue'
 import BlogContentTag from './components/contenttag.vue'
 import ReadedBook from './components/readbook.vue'
 // import ReaderLocation from './components/location.vue'
+import ArticleDetail from './components/article.vue'
 
 export default [
     { path: "/", component: BlogHome, name: "主页" },
     { path: "/articles", component: BlogArticles, name: "所有文章" },
+    { path: "/detail", component: ArticleDetail, name: "文章详情" },
     { path: "/about", component: BlogAbout, name: "我" },
     { path: "/category", component: BlogCategory, name: "分类" },
     { path: "/tag", component: BlogContentTag, name: "标签" },

@@ -32,7 +32,7 @@ body {
 #app {
     font-family: hack;
     text-align: center;
-    color: #FFFFFF;
+    color: #EEEEEE;
     background-color: #FFFFFF;
     margin: 0px;
     font-size: 20px;
@@ -65,14 +65,12 @@ body {
 .blog_footer {
     width: 80%;
     margin: 10px auto;
-    
 }
 a {
     text-decoration: none;
 }
 a:visited {
     color: #800080;
-    
 }
 a:link, a:hover {
     color: #00FF00;

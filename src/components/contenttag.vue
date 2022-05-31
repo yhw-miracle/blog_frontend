@@ -1,5 +1,5 @@
 <template>
-    <div class="tags">
+    <div class="tags_page">
         <div class="summary">
             <div class="summary_item" v-for="(item1, index1) in articles_by_tag" :key="index1">
                 <a @click="go_anchor('#'+item1.name)" target="_self">{{ item1.name }}({{ item1.articles.length }})</a>
@@ -16,7 +16,7 @@
                     <img src="/images/system/arrow_right1.svg" />
                     <span>{{ article.update }}</span>
                     <span>---</span>
-                    <a href="">{{ article.title }}</a>
+                    <router-link :to="{ path: '/detail', query: {id: article.hash} }">{{ article.title }}</router-link>
                 </div>
                 <hr />
             </div>
@@ -269,16 +269,16 @@ export default {
 .summary, .detail {
     width: 90%;
     margin: 30px auto;
-    min-height: 50px;
 }
 .summary_item {
     float: left;
     display: inline-block;
-    width: 10%;
+    width: 15%;
     background-color: #FF6A00;
     margin: 5px 10px;
     padding: 3px;
     text-align: center;
+    height: 30px;
 }
 hr {
     border: none;
@@ -295,5 +295,7 @@ hr {
 }
 .tags_articles *, .info * {
     margin: 0px 10px;
+    height: 25px;
+    vertical-align: middle;
 }
 </style>

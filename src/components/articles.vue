@@ -6,7 +6,7 @@
                 <img src="/images/system/arrow_right1.svg" />
                 <span>{{ article.update }}</span>
                 <span>---</span>
-                <a href="">{{ article.title }}</a>
+                <router-link :to="{ path: '/detail', query: {id: article.hash} }">{{ article.title }}</router-link>
             </div>
             <hr />
         </div>
@@ -23,16 +23,19 @@ export default {
                     year:"2022",
                     articles: [
                         {
+                            hash: "11222",
                             title: "Python 系列学习一",
                             create: "2022-01-01 00:00:00",
                             update: "2022-01-01 00:00:00"
                         },
                         {
+                            hash: "11222",
                             title: "Python 系列学习一",
                             create: "2022-01-01 00:00:00",
                             update: "2022-01-01 00:00:00"
                         },
                         {
+                            hash: "11222",
                             title: "Python 系列学习一",
                             create: "2022-01-01 00:00:00",
                             update: "2022-01-01 00:00:00"
@@ -43,16 +46,19 @@ export default {
                     year:"2021",
                     articles: [
                         {
+                            hash: "11222",
                             title: "Python 系列学习一",
                             create: "2022-01-01 00:00:00",
                             update: "2022-01-01 00:00:00"
                         },
                         {
+                            hash: "11222",
                             title: "Python 系列学习一",
                             create: "2022-01-01 00:00:00",
                             update: "2022-01-01 00:00:00"
                         },
                         {
+                            hash: "11222",
                             title: "Python 系列学习一",
                             create: "2022-01-01 00:00:00",
                             update: "2022-01-01 00:00:00"
@@ -63,16 +69,19 @@ export default {
                     year:"2020",
                     articles: [
                         {
+                            hash: "11222",
                             title: "Python 系列学习一",
                             create: "2022-01-01 00:00:00",
                             update: "2022-01-01 00:00:00"
                         },
                         {
+                            hash: "11222",
                             title: "Python 系列学习一",
                             create: "2022-01-01 00:00:00",
                             update: "2022-01-01 00:00:00"
                         },
                         {
+                            hash: "11222",
                             title: "Python 系列学习一",
                             create: "2022-01-01 00:00:00",
                             update: "2022-01-01 00:00:00"
@@ -83,16 +92,19 @@ export default {
                     year:"2019",
                     articles: [
                         {
+                            hash: "11222",
                             title: "Python 系列学习一",
                             create: "2022-01-01 00:00:00",
                             update: "2022-01-01 00:00:00"
                         },
                         {
+                            hash: "11222",
                             title: "Python 系列学习一",
                             create: "2022-01-01 00:00:00",
                             update: "2022-01-01 00:00:00"
                         },
                         {
+                            hash: "11222",
                             title: "Python 系列学习一",
                             create: "2022-01-01 00:00:00",
                             update: "2022-01-01 00:00:00"
@@ -103,16 +115,19 @@ export default {
                     year:"2018",
                     articles: [
                         {
+                            hash: "11222",
                             title: "Python 系列学习一",
                             create: "2022-01-01 00:00:00",
                             update: "2022-01-01 00:00:00"
                         },
                         {
+                            hash: "11222",
                             title: "Python 系列学习一",
                             create: "2022-01-01 00:00:00",
                             update: "2022-01-01 00:00:00"
                         },
                         {
+                            hash: "11222",
                             title: "Python 系列学习一",
                             create: "2022-01-01 00:00:00",
                             update: "2022-01-01 00:00:00"
@@ -123,16 +138,19 @@ export default {
                     year:"2017",
                     articles: [
                         {
+                            hash: "11222",
                             title: "Python 系列学习一",
                             create: "2022-01-01 00:00:00",
                             update: "2022-01-01 00:00:00"
                         },
                         {
+                            hash: "11222",
                             title: "Python 系列学习一",
                             create: "2022-01-01 00:00:00",
                             update: "2022-01-01 00:00:00"
                         },
                         {
+                            hash: "11222",
                             title: "Python 系列学习一",
                             create: "2022-01-01 00:00:00",
                             update: "2022-01-01 00:00:00"
@@ -143,16 +161,19 @@ export default {
                     year:"2016",
                     articles: [
                         {
+                            hash: "11222",
                             title: "Python 系列学习一",
                             create: "2022-01-01 00:00:00",
                             update: "2022-01-01 00:00:00"
                         },
                         {
+                            hash: "11222",
                             title: "Python 系列学习一",
                             create: "2022-01-01 00:00:00",
                             update: "2022-01-01 00:00:00"
                         },
                         {
+                            hash: "11222",
                             title: "Python 系列学习一",
                             create: "2022-01-01 00:00:00",
                             update: "2022-01-01 00:00:00"
@@ -182,10 +203,13 @@ export default {
 }
 .articles {
     margin: 15px;
+    padding: 0px;
     text-align: left;
 }
 .articles * {
     margin: 0px 10px;
+    height: 25px;
+    vertical-align: middle;
 }
 hr {
     border: none;

@@ -34,7 +34,7 @@
                         <td>{{ outstanding.nick_name }}</td>
                         <td>
                             <span class="link_item" v-for="(link_item, link_index) in outstanding.link" :key="link_index">
-                                <a :href="link_item">{{ link_item }}</a>
+                                <a :href="link_item" target="_blank">{{ link_item }}</a>
                             </span>
                         </td>
                         <td>{{ outstanding.belief }}</td>
@@ -79,7 +79,7 @@ export default {
                 {
                     "image": "/images/authors/hdp.jpg",
                     "nick_name": "whark",
-                    "link": ["https://whark.cn", "https://whark.cn"],
+                    "link": ["https://whark.cn"],
                     "belief": "除了一个小秘密，我只是一个极其平凡的人。"
                 },
                 {
@@ -125,6 +125,8 @@ export default {
 }
 .name *, .content * {
     margin: 0px 10px;
+    height: 25px;
+    vertical-align: middle;
 }
 hr {
     width: 90%;

@@ -7,12 +7,9 @@ import router from './router'
 
 const routers = createRouter({
     history: createWebHashHistory(),
-    routes: router,
-    // 消除地址栏中 #
-    // mode: "history"
+    routes: router
 })
 
-// createApp(App).mount('#app')
 const app = createApp(App)
 app.use(routers)
 app.use(ELementPlus)
