@@ -65,6 +65,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+import api_url from '../config/api_config'
 export default {
     name: "BlogHome",
     data() {
@@ -126,6 +128,11 @@ export default {
     mounted() {
         this.pageCount = Math.ceil(this.articles.length / this.pageSize)
         this.setPreviousAndNextImg()
+    },
+    updated() {
+        axios.get(api_url + "/").then(res => {
+            console.log(res.data)
+        })
     },
     methods: {
         handleCurrentChange(page, operation) {
