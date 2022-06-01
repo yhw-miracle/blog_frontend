@@ -3,7 +3,7 @@
         <div class="article">
             <div class="detail_title">
                 <img src="/images/system/article.svg" />
-                <h3>{{ article.title }}</h3>
+                <p>{{ article.title }}</p>
             </div>
             <div class="detail_author">
                 <img src="/images/system/author.svg" />
@@ -13,11 +13,13 @@
                 <img src="/images/system/article.svg" />
                 <span>阅读量:{{ article.reader }}</span>
             </div>
+            <hr />
 
             <div class="detail_content">
-                {{ article.content }}
+                <BlogEditorView :editorViewValue="article.content" />
             </div>
 
+            <hr />
             <div class="detail_category">
                 <img src="/images/system/category.svg" />
                 <span>分类:</span>
@@ -43,8 +45,10 @@
 </template>
 
 <script>
+import BlogEditorView from './editorView.vue'
 export default {
     name: "ArticleDetail",
+    components: { BlogEditorView },
     data() {
         return {
             article: {
@@ -56,7 +60,7 @@ export default {
                 category: "技术总结",
                 tags: ["python", "技术", "字典", "列表"],
                 author: "yhw",
-                content: "aaaaaaaaaaaaaaaaa"
+                content: "# aaaaaaaaaaaaaaaaa\n* 111\n* 222\n* 123"
             }
         }
     },
@@ -77,17 +81,23 @@ export default {
     margin: 10px auto;
     text-align: left;
 }
-.detail_title h3 {
+.detail_title p {
     display: inline-block;
     margin: 0px;
+    font-weight: bolder;
+    color: #800080;
+    border: 1px dotted #cccccc;
 }
 .article div {
-    margin: 10px auto;
+    margin: 3px auto;
 }
 .detail_title *, .detail_author *, .detail_reader *, .detail_create_time *, .detail_update_time * {
     margin: 0px 3px;
     height: 25px;
     vertical-align: middle;
+}
+.detail_author *, .detail_reader *, .detail_create_time *, .detail_update_time * {
+    font-size: 15px;
 }
 .detail_category, .detail_tags {
     height: 30px;

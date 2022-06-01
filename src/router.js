@@ -16,5 +16,5 @@ export default [
     { path: "/category", component: BlogCategory, name: "分类" },
     { path: "/tag", component: BlogContentTag, name: "标签" },
     { path: "/readed", component: ReadedBook, name: "阅读是件小事" },
-    // { path: "/location", component: ReaderLocation, name: "读者分布" }
+    // { path: "/location", component: ReaderLocation, name: "读者分布" },
 ]
