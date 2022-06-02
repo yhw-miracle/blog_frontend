@@ -1,13 +1,13 @@
 <template>
     <div class="detail">
-        <div class="article">
+        <div class="article" v-if="article">
             <div class="detail_title">
                 <img src="/images/system/article.svg" />
                 <p>{{ article.title }}</p>
             </div>
             <div class="detail_author">
                 <img src="/images/system/author.svg" />
-                <span>作者:{{ article.author }}</span>
+                <span>作者:{{ article.author.username }}</span>
             </div>
             <div class="detail_reader">
                 <img src="/images/system/article.svg" />
@@ -23,12 +23,12 @@
             <div class="detail_category">
                 <img src="/images/system/category.svg" />
                 <span>分类:</span>
-                <p class="category_item">{{ article.category }}</p>
+                <p class="category_item">{{ article.category.name }}</p>
             </div>
             <div class="detail_tags">
                 <img src="/images/system/tag.svg" />
                 <span>标签:</span>
-                <p class="tag_item" v-for="(tag, tag_index) in article.tags" :key="tag_index">{{ tag }}</p>
+                <p class="tag_item" v-for="(tag, tag_index) in article.tags" :key="tag_index">{{ tag.name }}</p>
             </div>
 
             <div class="detail_create_time">
@@ -41,31 +41,64 @@
             </div>
         </div>
         <div class="comment"></div>
+
+        <img src="/images/system/to_top.svg" v-if="isShowTop" class="go_top" @click="backTop" />
     </div>
 </template>
 
 <script>
+import axios from 'axios'
+import api_url from '../config/api_config'
 import BlogEditorView from './editorView.vue'
 export default {
     name: "ArticleDetail",
     components: { BlogEditorView },
     data() {
         return {
-            article: {
-                hash: "11111112222",
-                title: "Python 系列学习一",
-                create: "2022-01-01 00:00:00",
-                update: "2022-01-01 00:00:00",
-                reader: 10,
-                category: "技术总结",
-                tags: ["python", "技术", "字典", "列表"],
-                author: "yhw",
-                content: "# aaaaaaaaaaaaaaaaa\n* 111\n* 222\n* 123"
-            }
+            article: null,
+            isShowTop: false
+        }
+    },
+    renderTracked() {
+        // {key, target, type}
+        if(!this.article) {
+            var article_id = this.$router.currentRoute.value.query.id
+            axios.get(api_url + "/article/", {
+                params: {
+                    id: article_id
+                }
+            }).then(res => {
+                this.article = res.data
+            })
         }
     },
     mounted() {
-        console.log(this.$router.currentRoute.value.query)
+        window.addEventListener("scroll", this.scrollToTop)
+    },
+    unmounted() {
+        window.removeEventListener("scroll", this.scrollToTop)
+    },
+    methods: {
+        backTop() {
+            const that = this
+            let timer = setInterval(()=>{
+                let speed = Math.floor(-that.scrollTop / 5)
+                document.documentElement.scrollTop = document.body.scrollTop = that.scrollTop + speed
+                if(that.scrollTop === 0) {
+                    clearInterval(timer)
+                }
+            })
+        },
+        scrollToTop() {
+            const that = this
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+            that.scrollTop = scrollTop
+            if(that.scrollTop > 0) {
+                that.isShowTop = true
+            } else {
+                that.isShowTop = false
+            }
+        }
     }
 }
 </script>
@@ -108,5 +141,9 @@ export default {
     padding: 3px;
     height: 25px;
     vertical-align: middle;
+}
+.go_top {
+    position: absolute;
+    right: 50px;
 }
 </style>

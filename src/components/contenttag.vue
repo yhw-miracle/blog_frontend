@@ -21,226 +21,19 @@
                 <hr />
             </div>
         </div>
+        <img src="/images/system/to_top.svg" v-if="isShowTop" class="go_top" @click="backTop" />
     </div>
 </template>
 
 <script>
+import axios from 'axios'
+import api_url from '../config/api_config'
 export default {
     name: "BlogContentTag",
     data() {
         return {
-            articles_by_tag: [
-                {
-                    name: "python",
-                    articles: [
-                        {
-                            title: "Python 系列学习一",
-                            create: "2022-01-01 00:00:00",
-                            update: "2022-01-01 00:00:00",
-                            reader: 10,
-                            category: "技术总结",
-                            tags: ["python", "技术", "字典", "列表"],
-                            author: "yhw",
-                            content: "aaaaaaaaaaaaaaaaa"
-                        },
-                        {
-                            title: "Python 系列学习二",
-                            create: "2022-01-01 00:00:00",
-                            update: "2022-01-01 00:00:00",
-                            reader: 10,
-                            category: "技术总结",
-                            tags: ["python", "技术", "字典", "列表"],
-                            author: "yhw",
-                            content: "aaaaaaaaaaaaaaaaa"
-                        },
-                        {
-                            title: "Python 系列学习三",
-                            create: "2022-01-01 00:00:00",
-                            update: "2022-01-01 00:00:00",
-                            reader: 10,
-                            category: "技术总结",
-                            tags: ["python", "技术", "字典", "列表"],
-                            author: "yhw",
-                            content: "aaaaaaaaaaaaaaaaa"
-                        }
-                    ]
-                },
-                {
-                    name: "java",
-                    articles: [
-                        {
-                            title: "Python 系列学习一",
-                            create: "2022-01-01 00:00:00",
-                            update: "2022-01-01 00:00:00",
-                            reader: 10,
-                            category: "技术总结",
-                            tags: ["python", "技术", "字典", "列表"],
-                            author: "yhw",
-                            content: "aaaaaaaaaaaaaaaaa"
-                        },
-                        {
-                            title: "Python 系列学习二",
-                            create: "2022-01-01 00:00:00",
-                            update: "2022-01-01 00:00:00",
-                            reader: 10,
-                            category: "技术总结",
-                            tags: ["python", "技术", "字典", "列表"],
-                            author: "yhw",
-                            content: "aaaaaaaaaaaaaaaaa"
-                        },
-                        {
-                            title: "Python 系列学习三",
-                            create: "2022-01-01 00:00:00",
-                            update: "2022-01-01 00:00:00",
-                            reader: 10,
-                            category: "技术总结",
-                            tags: ["python", "技术", "字典", "列表"],
-                            author: "yhw",
-                            content: "aaaaaaaaaaaaaaaaa"
-                        }
-                    ]
-                },
-                {
-                    name: "android",
-                    articles: [
-                        {
-                            title: "Python 系列学习一",
-                            create: "2022-01-01 00:00:00",
-                            update: "2022-01-01 00:00:00",
-                            reader: 10,
-                            category: "技术总结",
-                            tags: ["python", "技术", "字典", "列表"],
-                            author: "yhw",
-                            content: "aaaaaaaaaaaaaaaaa"
-                        },
-                        {
-                            title: "Python 系列学习二",
-                            create: "2022-01-01 00:00:00",
-                            update: "2022-01-01 00:00:00",
-                            reader: 10,
-                            category: "技术总结",
-                            tags: ["python", "技术", "字典", "列表"],
-                            author: "yhw",
-                            content: "aaaaaaaaaaaaaaaaa"
-                        },
-                        {
-                            title: "Python 系列学习三",
-                            create: "2022-01-01 00:00:00",
-                            update: "2022-01-01 00:00:00",
-                            reader: 10,
-                            category: "技术总结",
-                            tags: ["python", "技术", "字典", "列表"],
-                            author: "yhw",
-                            content: "aaaaaaaaaaaaaaaaa"
-                        }
-                    ]
-                },
-                {
-                    name: "tcp",
-                    articles: [
-                        {
-                            title: "Python 系列学习一",
-                            create: "2022-01-01 00:00:00",
-                            update: "2022-01-01 00:00:00",
-                            reader: 10,
-                            category: "技术总结",
-                            tags: ["python", "技术", "字典", "列表"],
-                            author: "yhw",
-                            content: "aaaaaaaaaaaaaaaaa"
-                        },
-                        {
-                            title: "Python 系列学习二",
-                            create: "2022-01-01 00:00:00",
-                            update: "2022-01-01 00:00:00",
-                            reader: 10,
-                            category: "技术总结",
-                            tags: ["python", "技术", "字典", "列表"],
-                            author: "yhw",
-                            content: "aaaaaaaaaaaaaaaaa"
-                        },
-                        {
-                            title: "Python 系列学习三",
-                            create: "2022-01-01 00:00:00",
-                            update: "2022-01-01 00:00:00",
-                            reader: 10,
-                            category: "技术总结",
-                            tags: ["python", "技术", "字典", "列表"],
-                            author: "yhw",
-                            content: "aaaaaaaaaaaaaaaaa"
-                        }
-                    ]
-                },
-                {
-                    name: "udp",
-                    articles: [
-                        {
-                            title: "Python 系列学习一",
-                            create: "2022-01-01 00:00:00",
-                            update: "2022-01-01 00:00:00",
-                            reader: 10,
-                            category: "技术总结",
-                            tags: ["python", "技术", "字典", "列表"],
-                            author: "yhw",
-                            content: "aaaaaaaaaaaaaaaaa"
-                        },
-                        {
-                            title: "Python 系列学习二",
-                            create: "2022-01-01 00:00:00",
-                            update: "2022-01-01 00:00:00",
-                            reader: 10,
-                            category: "技术总结",
-                            tags: ["python", "技术", "字典", "列表"],
-                            author: "yhw",
-                            content: "aaaaaaaaaaaaaaaaa"
-                        },
-                        {
-                            title: "Python 系列学习三",
-                            create: "2022-01-01 00:00:00",
-                            update: "2022-01-01 00:00:00",
-                            reader: 10,
-                            category: "技术总结",
-                            tags: ["python", "技术", "字典", "列表"],
-                            author: "yhw",
-                            content: "aaaaaaaaaaaaaaaaa"
-                        }
-                    ]
-                },
-                {
-                    name: "异常",
-                    articles: [
-                        {
-                            title: "Python 系列学习一",
-                            create: "2022-01-01 00:00:00",
-                            update: "2022-01-01 00:00:00",
-                            reader: 10,
-                            category: "技术总结",
-                            tags: ["python", "技术", "字典", "列表"],
-                            author: "yhw",
-                            content: "aaaaaaaaaaaaaaaaa"
-                        },
-                        {
-                            title: "Python 系列学习二",
-                            create: "2022-01-01 00:00:00",
-                            update: "2022-01-01 00:00:00",
-                            reader: 10,
-                            category: "技术总结",
-                            tags: ["python", "技术", "字典", "列表"],
-                            author: "yhw",
-                            content: "aaaaaaaaaaaaaaaaa"
-                        },
-                        {
-                            title: "Python 系列学习三",
-                            create: "2022-01-01 00:00:00",
-                            update: "2022-01-01 00:00:00",
-                            reader: 10,
-                            category: "技术总结",
-                            tags: ["python", "技术", "字典", "列表"],
-                            author: "yhw",
-                            content: "aaaaaaaaaaaaaaaaa"
-                        }
-                    ]
-                }
-            ]
+            articles_by_tag: [],
+            isShowTop: false
         }
     },
     methods: {
@@ -256,7 +49,37 @@ export default {
                 top = anchor.offsetTop - scroll_top
             }
             window.scrollBy({top, behavior: "smooth"})
+        },
+        backTop() {
+            const that = this
+            let timer = setInterval(()=>{
+                let speed = Math.floor(-that.scrollTop / 5)
+                document.documentElement.scrollTop = document.body.scrollTop = that.scrollTop + speed
+                if(that.scrollTop === 0) {
+                    clearInterval(timer)
+                }
+            })
+        },
+        scrollToTop() {
+            const that = this
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+            that.scrollTop = scrollTop
+            if(that.scrollTop > 0) {
+                that.isShowTop = true
+            } else {
+                that.isShowTop = false
+            }
         }
+    },
+    mounted() {
+        axios.get(api_url + "/tag/").then(res => {
+            this.articles_by_tag = res.data
+        })
+
+        window.addEventListener("scroll", this.scrollToTop)
+    },
+    unmounted() {
+        window.removeEventListener("scroll", this.scrollToTop)
     },
 }
 </script>
@@ -275,7 +98,7 @@ export default {
     display: inline-block;
     width: 15%;
     background-color: #FF6A00;
-    margin: 5px 10px;
+    margin: 5px 3px;
     padding: 3px;
     text-align: center;
     height: 30px;
@@ -297,5 +120,9 @@ hr {
     margin: 0px 10px;
     height: 25px;
     vertical-align: middle;
+}
+.go_top {
+    position: absolute;
+    right: 50px;
 }
 </style>

@@ -10,177 +10,55 @@
             </div>
             <hr />
         </div>
+        <img src="/images/system/to_top.svg" v-if="isShowTop" class="go_top" @click="backTop" />
     </div>
 </template>
 
 <script>
+import axios from 'axios'
+import api_url from '../config/api_config'
 export default {
     name: "BlogArticles",
     data() {
         return {
-            articles_by_years: [
-                {
-                    year:"2022",
-                    articles: [
-                        {
-                            hash: "11222",
-                            title: "Python 系列学习一",
-                            create: "2022-01-01 00:00:00",
-                            update: "2022-01-01 00:00:00"
-                        },
-                        {
-                            hash: "11222",
-                            title: "Python 系列学习一",
-                            create: "2022-01-01 00:00:00",
-                            update: "2022-01-01 00:00:00"
-                        },
-                        {
-                            hash: "11222",
-                            title: "Python 系列学习一",
-                            create: "2022-01-01 00:00:00",
-                            update: "2022-01-01 00:00:00"
-                        }
-                    ]
-                },
-                {
-                    year:"2021",
-                    articles: [
-                        {
-                            hash: "11222",
-                            title: "Python 系列学习一",
-                            create: "2022-01-01 00:00:00",
-                            update: "2022-01-01 00:00:00"
-                        },
-                        {
-                            hash: "11222",
-                            title: "Python 系列学习一",
-                            create: "2022-01-01 00:00:00",
-                            update: "2022-01-01 00:00:00"
-                        },
-                        {
-                            hash: "11222",
-                            title: "Python 系列学习一",
-                            create: "2022-01-01 00:00:00",
-                            update: "2022-01-01 00:00:00"
-                        }
-                    ]
-                },
-                {
-                    year:"2020",
-                    articles: [
-                        {
-                            hash: "11222",
-                            title: "Python 系列学习一",
-                            create: "2022-01-01 00:00:00",
-                            update: "2022-01-01 00:00:00"
-                        },
-                        {
-                            hash: "11222",
-                            title: "Python 系列学习一",
-                            create: "2022-01-01 00:00:00",
-                            update: "2022-01-01 00:00:00"
-                        },
-                        {
-                            hash: "11222",
-                            title: "Python 系列学习一",
-                            create: "2022-01-01 00:00:00",
-                            update: "2022-01-01 00:00:00"
-                        }
-                    ]
-                },
-                {
-                    year:"2019",
-                    articles: [
-                        {
-                            hash: "11222",
-                            title: "Python 系列学习一",
-                            create: "2022-01-01 00:00:00",
-                            update: "2022-01-01 00:00:00"
-                        },
-                        {
-                            hash: "11222",
-                            title: "Python 系列学习一",
-                            create: "2022-01-01 00:00:00",
-                            update: "2022-01-01 00:00:00"
-                        },
-                        {
-                            hash: "11222",
-                            title: "Python 系列学习一",
-                            create: "2022-01-01 00:00:00",
-                            update: "2022-01-01 00:00:00"
-                        }
-                    ]
-                },
-                {
-                    year:"2018",
-                    articles: [
-                        {
-                            hash: "11222",
-                            title: "Python 系列学习一",
-                            create: "2022-01-01 00:00:00",
-                            update: "2022-01-01 00:00:00"
-                        },
-                        {
-                            hash: "11222",
-                            title: "Python 系列学习一",
-                            create: "2022-01-01 00:00:00",
-                            update: "2022-01-01 00:00:00"
-                        },
-                        {
-                            hash: "11222",
-                            title: "Python 系列学习一",
-                            create: "2022-01-01 00:00:00",
-                            update: "2022-01-01 00:00:00"
-                        }
-                    ]
-                },
-                {
-                    year:"2017",
-                    articles: [
-                        {
-                            hash: "11222",
-                            title: "Python 系列学习一",
-                            create: "2022-01-01 00:00:00",
-                            update: "2022-01-01 00:00:00"
-                        },
-                        {
-                            hash: "11222",
-                            title: "Python 系列学习一",
-                            create: "2022-01-01 00:00:00",
-                            update: "2022-01-01 00:00:00"
-                        },
-                        {
-                            hash: "11222",
-                            title: "Python 系列学习一",
-                            create: "2022-01-01 00:00:00",
-                            update: "2022-01-01 00:00:00"
-                        }
-                    ]
-                },
-                {
-                    year:"2016",
-                    articles: [
-                        {
-                            hash: "11222",
-                            title: "Python 系列学习一",
-                            create: "2022-01-01 00:00:00",
-                            update: "2022-01-01 00:00:00"
-                        },
-                        {
-                            hash: "11222",
-                            title: "Python 系列学习一",
-                            create: "2022-01-01 00:00:00",
-                            update: "2022-01-01 00:00:00"
-                        },
-                        {
-                            hash: "11222",
-                            title: "Python 系列学习一",
-                            create: "2022-01-01 00:00:00",
-                            update: "2022-01-01 00:00:00"
-                        }
-                    ]
+            articles_by_years: [],
+            isShowTop: false
+        }
+    },
+    mounted() {
+        axios.get(api_url + "/", {
+            params: {
+                by_year: true
+            }
+        }).then(res => {
+            this.articles_by_years = res.data
+        })
+
+        window.addEventListener("scroll", this.scrollToTop)
+    },
+    unmounted() {
+        window.removeEventListener("scroll", this.scrollToTop)
+    },
+    methods: {
+        backTop() {
+            const that = this
+            let timer = setInterval(()=>{
+                let speed = Math.floor(-that.scrollTop / 5)
+                document.documentElement.scrollTop = document.body.scrollTop = that.scrollTop + speed
+                if(that.scrollTop === 0) {
+                    clearInterval(timer)
                 }
-            ]
+            })
+        },
+        scrollToTop() {
+            const that = this
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+            that.scrollTop = scrollTop
+            if(that.scrollTop > 0) {
+                that.isShowTop = true
+            } else {
+                that.isShowTop = false
+            }
         }
     }
 }
@@ -215,5 +93,9 @@ hr {
     border: none;
     border-top: 3px dotted #00FF00;
     clear: both;
+}
+.go_top {
+    position: absolute;
+    right: 50px;
 }
 </style>

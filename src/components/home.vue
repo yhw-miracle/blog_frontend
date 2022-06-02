@@ -17,7 +17,7 @@
                 <div class="row2">
                     <div class="author">
                         <img src="/images/system/author.svg" />
-                        <span>作者:{{ article.author }}</span>
+                        <span>作者:{{ article.author.username }}</span>
                     </div>
                     <div class="reader">
                         <img src="/images/system/article.svg" />
@@ -29,16 +29,16 @@
                     </div>
                 </div>
                 
-                <div class="row3">
+                <div class="row3" v-if="article.category">
                     <div class="category">
                         <img src="/images/system/category.svg" />
                         <span>分类:</span>
-                        <p class="category_item">{{ article.category }}</p>
+                        <p class="category_item">{{ article.category.name }}</p>
                     </div>
-                    <div class="tags">
+                    <div class="tags" v-if="article.tags.length > 0">
                         <img src="/images/system/tag.svg" />
                         <span>标签:</span>
-                        <p class="tag_item" v-for="(tag, tag_index) in article.tags" :key="tag_index">{{ tag }}</p>
+                        <p class="tag_item" v-for="(tag, tag_index) in article.tags" :key="tag_index">{{ tag.name }}</p>
                     </div>
                 </div>
                 
@@ -54,13 +54,15 @@
                 v-if="pageCount > 1" />
             <span>第 {{ currentPage }} 页,</span>
             <span>共 {{ pageCount }} 页,</span>
-            <span>计 {{ articles.length }} 篇.</span>
+            <span>计 {{ count }} 篇.</span>
             <img
                 :src="nextImg"
                 @click="handleCurrentChange(currentPage, 'next')"
                 :class="[ currentPage === pageCount ? 'page_cancel':'']"
                 v-if="pageCount > 1" />
         </div>
+
+        <img src="/images/system/to_top.svg" v-if="isShowTop" class="go_top" @click="backTop" />
     </div>
 </template>
 
@@ -72,67 +74,28 @@ export default {
     data() {
         return {
             currentPage: 1,
-            pageSize: 1,
-            pageCount: 2,
+            pageSize: 10,
+            pageCount: 1,
             previousImg: "/images/system/previous.svg",
             nextImg: "/images/system/next.svg",
             noPageImg: "/images/system/no_page.svg",
-            articles: [
-                {
-                    hash: "11111112222",
-                    title: "Python 系列学习一",
-                    create: "2022-01-01 00:00:00",
-                    update: "2022-01-01 00:00:00",
-                    reader: 10,
-                    category: "技术总结",
-                    tags: ["python", "技术", "字典", "列表"],
-                    author: "yhw",
-                    content: "aaaaaaaaaaaaaaaaa"
-                },
-                {
-                    hash: "11111112222",
-                    title: "Python 系列学习一",
-                    create: "2022-01-01 00:00:00",
-                    update: "2022-01-01 00:00:00",
-                    reader: 10,
-                    category: "技术总结",
-                    tags: ["python", "技术", "字典", "列表"],
-                    author: "yhw",
-                    content: "aaaaaaaaaaaaaaaaa"
-                },
-                {
-                    hash: "11111112222",
-                    title: "Python 系列学习一",
-                    create: "2022-01-01 00:00:00",
-                    update: "2022-01-01 00:00:00",
-                    reader: 10,
-                    category: "技术总结",
-                    tags: ["python", "技术", "字典", "列表"],
-                    author: "yhw",
-                    content: "aaaaaaaaaaaaaaaaa"
-                },
-                {
-                    hash: "11111112222",
-                    title: "Python 系列学习一",
-                    create: "2022-01-01 00:00:00",
-                    update: "2022-01-01 00:00:00",
-                    reader: 10,
-                    category: "技术总结",
-                    tags: ["python", "技术", "字典", "列表"],
-                    author: "yhw",
-                    content: "aaaaaaaaaaaaaaaaa"
-                }
-            ]
+            articles: [],
+            count: 0,
+            isShowTop: false
         }
     },
     mounted() {
-        this.pageCount = Math.ceil(this.articles.length / this.pageSize)
-        this.setPreviousAndNextImg()
-    },
-    updated() {
         axios.get(api_url + "/").then(res => {
-            console.log(res.data)
+            this.articles = res.data.articles
+            this.count = res.data.count
+            this.pageCount = Math.ceil(this.count / this.pageSize)
+            this.setPreviousAndNextImg()
         })
+
+        window.addEventListener("scroll", this.scrollToTop)
+    },
+    unmounted() {
+        window.removeEventListener("scroll", this.scrollToTop)
     },
     methods: {
         handleCurrentChange(page, operation) {
@@ -143,6 +106,17 @@ export default {
                 page += 1
             }
             this.currentPage = page
+            
+            axios.get(api_url + "/", {
+                params: {
+                    currentPage: this.currentPage,
+                    pageSize: this.pageSize
+                }
+            }).then(res => {
+                this.articles = res.data.articles
+                this.pageCount = Math.ceil(this.count / this.pageSize)
+            })
+
             this.setPreviousAndNextImg()
         },
         setPreviousAndNextImg() {
@@ -156,6 +130,26 @@ export default {
                 this.nextImg = "/images/system/no_page.svg"
             } else {
                 this.nextImg = "/images/system/next.svg"
+            }
+        },
+        backTop() {
+            const that = this
+            let timer = setInterval(()=>{
+                let speed = Math.floor(-that.scrollTop / 5)
+                document.documentElement.scrollTop = document.body.scrollTop = that.scrollTop + speed
+                if(that.scrollTop === 0) {
+                    clearInterval(timer)
+                }
+            })
+        },
+        scrollToTop() {
+            const that = this
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+            that.scrollTop = scrollTop
+            if(that.scrollTop > 0) {
+                that.isShowTop = true
+            } else {
+                that.isShowTop = false
             }
         }
     },
@@ -244,5 +238,9 @@ hr {
 .page * {
     height: 25px;
     margin: 0px 3px;
+}
+.go_top {
+    position: absolute;
+    right: 50px;
 }
 </style>

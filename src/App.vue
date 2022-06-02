@@ -32,15 +32,15 @@ body {
 #app {
     font-family: hack;
     text-align: center;
-    color: #EEEEEE;
-    background-color: #FFFFFF;
+    color: #000000;
+    background-color: #FFFFFFF;
     margin: 0px;
     font-size: 20px;
 }
 .main {
     margin: 0px;
-    background-color: #333333;
-    border: 10px dotted #FF6B00;
+    background-color: #FFFFFFF;
+    /*border: 10px dotted #FF6B00;*/
     /*
     position: absolute;
     top: 50px;
