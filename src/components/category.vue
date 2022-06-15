@@ -118,6 +118,7 @@ hr {
 .category_articles *, .info * {
     margin: 0px 10px;
     height: 25px;
+    font-size: 16px;
     vertical-align: middle;
 }
 .go_top {

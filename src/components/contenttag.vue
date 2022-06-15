@@ -96,7 +96,7 @@ export default {
 .summary_item {
     float: left;
     display: inline-block;
-    width: 15%;
+    /* width: 15%; */
     background-color: #FF6A00;
     margin: 5px 3px;
     padding: 3px;
@@ -114,6 +114,7 @@ hr {
 }
 .tags_articles {
     margin: 10px 0px 10px 150px;
+    font-size: 16px;
     text-align: left;
 }
 .tags_articles *, .info * {

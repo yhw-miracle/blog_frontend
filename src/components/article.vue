@@ -59,7 +59,7 @@ export default {
             isShowTop: false
         }
     },
-    renderTracked() {
+    mounted() {
         // {key, target, type}
         if(!this.article) {
             var article_id = this.$router.currentRoute.value.query.id
@@ -71,8 +71,7 @@ export default {
                 this.article = res.data
             })
         }
-    },
-    mounted() {
+    
         window.addEventListener("scroll", this.scrollToTop)
     },
     unmounted() {

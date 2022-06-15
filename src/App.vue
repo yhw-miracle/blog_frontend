@@ -1,6 +1,7 @@
 <template>
     <div class="main">
         <h3 class="blog_title"><a href="">yhw-miracle</a></h3>
+        <span class="slogan">每一个人的生命中，都有最艰难的那一年，将人生变得美好而辽阔。</span>
         <div class="blog_header">
             <BlogHeader></BlogHeader>
         </div>
@@ -51,6 +52,10 @@ body {
 }
 .blog_title {
     margin: 10px auto;
+}
+.slogan {
+    font-size: 15px;
+    color: #cccccc;
 }
 .blog_header {
     width: 80%;
