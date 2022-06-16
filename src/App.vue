@@ -1,6 +1,6 @@
 <template>
     <div class="main">
-        <h3 class="blog_title"><a href="">yhw-miracle</a></h3>
+        <h3 class="blog_title"><a target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=rtfG2fHdwcja2c-cy_7f34DNwcM">yhw-miracle</a></h3>
         <span class="slogan">每一个人的生命中，都有最艰难的那一年，将人生变得美好而辽阔。</span>
         <div class="blog_header">
             <BlogHeader></BlogHeader>

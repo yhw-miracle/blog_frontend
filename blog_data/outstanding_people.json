@@ -1,0 +1,26 @@
+[
+    {
+        "image": "/images/authors/hdp.jpg",
+        "nick_name": "whark",
+        "link": ["https://whark.cn"],
+        "belief": "除了一个小秘密，我只是一个极其平凡的人。"
+    },
+    {
+        "image": "/images/authors/jqq.jpg",
+        "nick_name": "qiracle",
+        "link": ["https://qiracle.cn"],
+        "belief": "no pains,no gains."
+    },
+    {
+        "image": "/images/authors/zkp.jpg",
+        "nick_name": "mour",
+        "link": ["https://iami.xyz"],
+        "belief": "人生其实宽广的很"
+    },
+    {
+        "image": "/images/authors/zwl.jpg",
+        "nick_name": "slycmiaoxi",
+        "link": ["https://slycmiaoxi.github.io"],
+        "belief": "I believe my dream will come true."
+    }
+]
