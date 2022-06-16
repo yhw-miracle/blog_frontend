@@ -1,5 +1,5 @@
 <template>
-    <div class="editorView">
+    <div class="editorView" v-loading="isLoading" element-loading-text="加载中......">
         <!-- Markdown 预览 样式 -->
         <link rel="stylesheet" href="/editor-md/css/editormd.preview.min.css"/>
         <!-- Markdown 预览 -->
@@ -27,6 +27,7 @@ export default {
     data () {
         return {
             editorView: null,
+            isLoading: true,
         }
     },
     methods: {
@@ -85,6 +86,7 @@ export default {
                     // 实例化
                     this.editorView = window.editormd.markdownToHTML(editorViewId, config)
                 })
+                this.isLoading = false
             })
         },
         randomNum (length) {
