@@ -11,16 +11,18 @@
         <div class="blog_footer">
             <BlogFooter></BlogFooter>
         </div>
+        <BlogEditorView editorViewValue="" style="display: none;" />
     </div>
 </template>
 
 <script>
 import BlogHeader from './components/header.vue'
 import BlogFooter from './components/footer.vue'
+import BlogEditorView from './components/editorView.vue'
 
 export default {
     name: 'App',
-    components: { BlogHeader, BlogFooter }
+    components: { BlogHeader, BlogFooter, BlogEditorView }
 }
 </script>
 
