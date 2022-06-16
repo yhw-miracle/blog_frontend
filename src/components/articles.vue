@@ -15,8 +15,9 @@
 </template>
 
 <script>
-import axios from 'axios'
-import api_url from '../config/api_config'
+// import axios from 'axios'
+// import api_url from '../config/api_config'
+import articles_by_year from '../../blog_data/articles_by_year'
 export default {
     name: "BlogArticles",
     data() {
@@ -26,14 +27,15 @@ export default {
         }
     },
     mounted() {
-        axios.get(api_url + "/", {
-            params: {
-                by_year: true
-            }
-        }).then(res => {
-            this.articles_by_years = res.data
-        })
+        // axios.get(api_url + "/", {
+        //     params: {
+        //         by_year: true
+        //     }
+        // }).then(res => {
+        //     this.articles_by_years = res.data
+        // })
 
+        this.articles_by_years = articles_by_year
         window.addEventListener("scroll", this.scrollToTop)
     },
     unmounted() {

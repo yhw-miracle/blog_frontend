@@ -1,4 +1,3 @@
-// import HelloWorld from './components/HelloWorld.vue'
 import BlogHome from './components/home.vue'
 import BlogArticles from './components/articles.vue'
 import BlogAbout from './components/about.vue'

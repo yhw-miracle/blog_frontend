@@ -10,8 +10,9 @@
 </template>
 
 <script>
-import axios from 'axios'
-import api_url from '../config/api_config'
+// import axios from 'axios'
+// import api_url from '../config/api_config'
+import reading_notes from '../../blog_data/reading_notes'
 export default {
     name: "ReadedBook",
     data() {
@@ -20,9 +21,10 @@ export default {
         }
     },
     mounted() {
-        axios.get(api_url + "/reading_notes/").then(res => {
-            this.readed_books = res.data
-        })
+        // axios.get(api_url + "/reading_notes/").then(res => {
+        //     this.readed_books = res.data
+        // })
+        this.readed_books = reading_notes
     },
 }
 </script>

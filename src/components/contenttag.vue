@@ -26,8 +26,9 @@
 </template>
 
 <script>
-import axios from 'axios'
-import api_url from '../config/api_config'
+// import axios from 'axios'
+// import api_url from '../config/api_config'
+import articles_by_tag from '../../blog_data/tag'
 export default {
     name: "BlogContentTag",
     data() {
@@ -72,10 +73,10 @@ export default {
         }
     },
     mounted() {
-        axios.get(api_url + "/tag/").then(res => {
-            this.articles_by_tag = res.data
-        })
-
+        // axios.get(api_url + "/tag/").then(res => {
+        //     this.articles_by_tag = res.data
+        // })
+        this.articles_by_tag = articles_by_tag
         window.addEventListener("scroll", this.scrollToTop)
     },
     unmounted() {

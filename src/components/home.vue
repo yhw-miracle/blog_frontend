@@ -19,10 +19,10 @@
                         <img src="/images/system/author.svg" />
                         <span>作者:{{ article.author.username }}</span>
                     </div>
-                    <div class="reader">
+                    <!-- <div class="reader">
                         <img src="/images/system/article.svg" />
                         <span>阅读量:{{ article.reader }}</span>
-                    </div>
+                    </div> -->
                     <div class="create_time">
                         <img src="/images/system/publication.svg" />
                         <span>首次发表:{{ article.create }}</span>
@@ -67,8 +67,9 @@
 </template>
 
 <script>
-import axios from 'axios'
-import api_url from '../config/api_config'
+// import axios from 'axios'
+// import api_url from '../config/api_config'
+import homedata from '../../blog_data/home'
 export default {
     name: "BlogHome",
     data() {
@@ -85,12 +86,17 @@ export default {
         }
     },
     mounted() {
-        axios.get(api_url + "/").then(res => {
-            this.articles = res.data.articles
-            this.count = res.data.count
-            this.pageCount = Math.ceil(this.count / this.pageSize)
-            this.setPreviousAndNextImg()
-        })
+        this.articles = homedata[this.currentPage].articles
+        this.count = homedata[this.currentPage].count
+        this.pageCount = Math.ceil(this.count / this.pageSize)
+        this.setPreviousAndNextImg()
+
+        // axios.get(api_url + "/").then(res => {
+        //     this.articles = res.data.articles
+        //     this.count = res.data.count
+        //     this.pageCount = Math.ceil(this.count / this.pageSize)
+        //     this.setPreviousAndNextImg()
+        // })
 
         window.addEventListener("scroll", this.scrollToTop)
     },
@@ -106,16 +112,18 @@ export default {
                 page += 1
             }
             this.currentPage = page
+            this.articles = homedata[this.currentPage].articles
+            this.pageCount = Math.ceil(this.count / this.pageSize)
             
-            axios.get(api_url + "/", {
-                params: {
-                    currentPage: this.currentPage,
-                    pageSize: this.pageSize
-                }
-            }).then(res => {
-                this.articles = res.data.articles
-                this.pageCount = Math.ceil(this.count / this.pageSize)
-            })
+            // axios.get(api_url + "/", {
+            //     params: {
+            //         currentPage: this.currentPage,
+            //         pageSize: this.pageSize
+            //     }
+            // }).then(res => {
+            //     this.articles = res.data.articles
+            //     this.pageCount = Math.ceil(this.count / this.pageSize)
+            // })
 
             this.setPreviousAndNextImg()
         },

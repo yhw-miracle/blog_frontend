@@ -9,10 +9,10 @@
                 <img src="/images/system/author.svg" />
                 <span>作者:{{ article.author.username }}</span>
             </div>
-            <div class="detail_reader">
+            <!-- <div class="detail_reader">
                 <img src="/images/system/article.svg" />
                 <span>阅读量:{{ article.reader }}</span>
-            </div>
+            </div> -->
             <hr />
 
             <div class="detail_content">
@@ -47,8 +47,9 @@
 </template>
 
 <script>
-import axios from 'axios'
-import api_url from '../config/api_config'
+// import axios from 'axios'
+// import api_url from '../config/api_config'
+import articles_by_hash from '../../blog_data/articles_by_hash'
 import BlogEditorView from './editorView.vue'
 export default {
     name: "ArticleDetail",
@@ -63,13 +64,14 @@ export default {
         // {key, target, type}
         if(!this.article) {
             var article_id = this.$router.currentRoute.value.query.id
-            axios.get(api_url + "/article/", {
-                params: {
-                    id: article_id
-                }
-            }).then(res => {
-                this.article = res.data
-            })
+            // axios.get(api_url + "/article/", {
+            //     params: {
+            //         id: article_id
+            //     }
+            // }).then(res => {
+            //     this.article = res.data
+            // })
+            this.article = articles_by_hash[article_id]
         }
     
         window.addEventListener("scroll", this.scrollToTop)
